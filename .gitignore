@@ -1,0 +1,59 @@
+# =========================
+# IoT TIG Stack .gitignore
+# =========================
+
+# --- OS / Editor junk ---
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.bak
+*.tmp
+*.log
+
+# --- Python / Node (ถ้ามี script เสริม) ---
+__pycache__/
+*.pyc
+node_modules/
+
+# --- Docker ---
+*.pid
+*.seed
+*.sock
+
+# --- InfluxDB data (ไม่ควร commit) ---
+influxdb/data/
+influxdb/wal/
+influxdb/meta/
+influxdb/data/
+
+# --- Grafana data (ใช้ provisioning แทน) ---
+grafana/grafana.db
+grafana/plugins/
+grafana/png/
+grafana/pdf/
+grafana/csv/
+grafana/alerting/
+
+# --- Mosquitto persistence (ถ้ามี) ---
+mosquitto/data/
+mosquitto/log/
+
+# --- Backup / Export ---
+backup/
+export/
+*.tar
+*.gz
+*.zip
+
+# --- VSCode / IDE ---
+.vscode/
+.idea/
+
+# --- Log from another service ---
+*.log
+logs/
+
+# --- Junk file from OS ---
+.DS_Store
+Thumbs.db
