@@ -8,6 +8,15 @@ It is not a framework, but a **baseline distribution**: a ready-to-use stack tha
 
 ---
 
+## 🌟 Key Features
+
+- **Retention Policy**: init.sql creates `raw_90d` to keep IoT data manageable
+- **Continuous Query**: auto-downsampling for long-term trends
+- **Reproducible Configs**: Telegraf, InfluxDB, Grafana all provisioned from versioned files
+- **Ready-to-Use Pipeline**: Device → Mosquitto → Telegraf → InfluxDB → Grafana
+
+---
+
 ## 📡 Data Flow
 
 > Note: The `mosquitto_repo` service in this repository is **not the primary broker** 
