@@ -1,8 +1,10 @@
 # IoT TIG Dev Stack
 
-This repository provides a **developer-ready TIG stack** (Telegraf + InfluxDB + Grafana) 
-for ingesting IoT payloads from an external Mosquitto broker, storing them in InfluxDB, 
-and visualizing with Grafana.
+Developer-ready TIG stack (Telegraf, InfluxDB, Grafana) for ingesting IoT payloads from an external Mosquitto broker and visualizing them in Grafana.
+
+This repository distributes curated configuration and initialization files. The core value lies in reproducible configs and a single source of truth for database initialization (`init.sql`).
+
+It is not a framework, but a **baseline distribution**: a ready-to-use stack that saves hours of setup and ensures consistency across environments.
 
 ---
 
@@ -23,6 +25,22 @@ External Mosquitto (simulated device payloads)
 
 ---
 
+## 📂 Core Files
+
+- docker-compose.yml  
+  Orchestrates TIG containers and mounts volumes for configs and data
+
+- configs/telegraf.conf  
+  Generic MQTT → InfluxDB pipeline, with topic patterns and field mapping
+
+- influxdb/init/init.sql  
+  **The most important file**: creates database `iotdata`, retention policies, users, and baseline measurement(s)
+
+- grafana/provisioning/  
+  Auto-provision datasource and dashboards
+
+---
+
 ## 📂 Repository Structure
 
 .
@@ -37,6 +55,37 @@ External Mosquitto (simulated device payloads)
 │   └── provisioning/          # Datasource provisioning (InfluxDB)  
 └── influxdb/  
     └── init/init.sql          # Initialization script (DB, RP, CQ)  
+
+---
+
+## 🗄 Database Initialization (init.sql)
+
+init.sql provides a known-good baseline:
+- Database: iotdata
+- Retention policy: raw_90d
+- Users and permissions aligned to least privilege
+- Baseline measurement (e.g., iot_raw) for generic IoT ingestion
+
+Rationale:
+- A single, versioned source of truth for schema and policies
+- Reproducibility across dev machines and environments
+
+---
+
+## 📊 Example Payload
+
+{
+  "device": "esp32-01",
+  "sensor": "temp",
+  "value": 28.5,
+  "ts": 1730000000
+}
+
+Stored in InfluxDB as:
+- measurement: iot_raw
+- tags: device, sensor
+- fields: value
+- time: ts
 
 ---
 
